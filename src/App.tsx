@@ -5,7 +5,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, StyleSheetManager } from 'styled-components';
 
 import Header from '@/components/Header';
 import GlobalStyle from '@/styles/global';
@@ -13,6 +13,7 @@ import theme from '@/styles/theme';
 import routes from '@/routes.json';
 import store from '@/store';
 
+const { __PRERENDER__ } = window as any;
 const generatedRoutes = generateRoutes();
 
 interface RouteInterface {
@@ -24,12 +25,14 @@ interface RouteInterface {
 function App() {
   return (
     <Provider store={store}>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Content />
-        </Router>
-      </ThemeProvider>
+      <StyleSheetManager disableCSSOMInjection={__PRERENDER__}>
+        <GlobalStyle />
+        <ThemeProvider theme={theme}>
+          <Router>
+            <Content />
+          </Router>
+        </ThemeProvider>
+      </StyleSheetManager>
     </Provider>
   );
 }
