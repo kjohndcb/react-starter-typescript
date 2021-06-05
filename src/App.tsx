@@ -24,16 +24,16 @@ interface RouteInterface {
 
 function App() {
   return (
-    <Provider store={store}>
-      <StyleSheetManager disableCSSOMInjection={__PRERENDER__}>
+    <StyleSheetManager disableCSSOMInjection={__PRERENDER__}>
+      <Provider store={store}>
         <GlobalStyle />
         <ThemeProvider theme={theme}>
           <Router>
             <Content />
           </Router>
         </ThemeProvider>
-      </StyleSheetManager>
-    </Provider>
+      </Provider>
+    </StyleSheetManager>
   );
 }
 
